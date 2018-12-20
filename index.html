@@ -2,12 +2,57 @@
 <html>
 
 <head>
-	<title>TM35-Metronome</title>
+    <title>TM35-Metronome</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
-	<h1>WIP</h1>
-	<p>Nothing to see yet</p>
+    <h1><a href="/index.html">TM35-Metronome</a></h1>
+    <nav>
+        <a href="/tools/index.html">Tools</a> |
+        <a href="/fqa.html">FQA</a>
+    </nav>
+
+    <p>TM35-Metronome (or Metronome for short) is a collection terminal based tools for modifying Pokémon games. Unlike
+        existing tools such as <a href="https://projectpokemon.org/home/forums/topic/273-ppre-project-pokemons-rom-editor/">PPRE</a>,
+        <a href="https://projectpokemon.org/home/files/file/2089-blackwhite-wild-editor-bwwe/">BWWE</a>, and
+        <a href="https://projectpokemon.org/home/files/category/54-rom-editing/">many others</a>, Metronome aims to
+        work on any generation of Pokémon games and provides a simple interface that allows extension in any
+        programming language.</p>
+
+    <h2>Example</h2>
+    <p>Let's pretend that you want to change the typing of the Pokémon
+        <a href="https://bulbapedia.bulbagarden.net/wiki/Bulbasaur_(Pok%C3%A9mon)">Bulbasaur</a> in Pokémon Emerald.
+        First, you'll need one of the <code>tm35-genX-load</code> programs to extract game information into an editable
+        text file.</p>
+    <pre><code>tm35-gen3-load pokemon-emerald.gba &gt; emerald.tm35</code></pre>
+
+    <p>Inside this file, you'll find a lot of information about the game you loaded. What we are looking for is
+        Bulbasaur's information.</p>
+    <aside>Metronome does not support extracting Pokémon names yet. You, therefore, cannot search for Bulbasaur. The
+        best way to find the Pokémon you're looking for is searching for it using its
+        <a href="https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_index_number_(Generation_III)">index
+            number</a>. Bulbasaur's index number is <code>1</code> so let's search for <code>.pokemons[1].types</code>.</aside>
+
+    <pre><code>.pokemons[1].types[0]=Grass
+.pokemons[1].types[1]=Poison</code></pre>
+
+    <p>Let's change its second typing to <code>Dragon</code>.</p>
+    <pre><code>.pokemons[1].types[0]=Grass
+.pokemons[1].types[1]=Dragon</code></pre>
+
+    <p>If we now save this file and pipe it into <code>tm35-gen3-apply</code>, our changes will be applied to the game.</p>
+    <pre><code>tm35-gen3-apply pokemon-emerald.gba -o emerald-modified.gba</code></pre>
+
+    <img src="image/emerald-modified.gba.png" alt="emerald-modified.gba.png">
+
+    <p>If you already know what you want to modify you can also use <code>tm35-genX-apply</code> on its own.</p>
+    <pre><code>echo ".pokemons[1].types[1]=Dragon" | tm35-gen3-apply pokemon-emerald.gba -o emerald-modified.gba</code></pre>
+
+    <p>You don't have to modify this data yourself. Metronome provides a set of tools that can read, understand and
+        modify this data. One of these tools is <code>tm35-rand-wild</code> which will randomize the wild Pokémons in a
+        game.</p>
+    <pre><code>tm35-gen3-load pokemon-emerald.gba | tm35-rand-wild | tm35-gen3-apply pokemon-emerald.gba -o emerald-modified.gba</code></pre>
 </body>
 
 </html>
