@@ -49,10 +49,16 @@
     <p>If you already know what you want to modify you can also use <code>tm35-genX-apply</code> on its own.</p>
     <pre><code>echo ".pokemons[1].types[1]=Dragon" | tm35-gen3-apply pokemon-emerald.gba -o emerald-modified.gba</code></pre>
 
-    <p>You don't have to modify this data yourself. Metronome provides a set of tools that can read, understand and
-        modify this data. One of these tools is <code>tm35-rand-wild</code> which will randomize the wild Pokémons in a
-        game.</p>
+    <p>Metronome also provides a set of tools that can read, understand and modify this data. One of these tools is
+        <code>tm35-rand-wild</code> which will randomize the wild Pokémons in a game.</p>
     <pre><code>tm35-gen3-load pokemon-emerald.gba | tm35-rand-wild | tm35-gen3-apply pokemon-emerald.gba -o emerald-modified.gba</code></pre>
+
+    <h2>Videos</h2>
+    <a href="https://youtu.be/dbcLcEAEw-A">Demo: Randomizing wild Pokemons of gen 4 games (TM35-Metronome)</a> (16.
+    dec. 2018)
+    <br />
+    <a href="https://youtu.be/4NwW_3MtlnQ">Demo: Tools for modifying Pokemon games (Tm35-Metronome)</a> (30. nov. 2018)
+    <br />
 </body>
 
 </html>
