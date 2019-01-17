@@ -22,10 +22,10 @@
 
     <h2>Example</h2>
     <p>Let's pretend that you want to change the typing of the Pokémon
-        <a href="https://bulbapedia.bulbagarden.net/wiki/Bulbasaur_(Pok%C3%A9mon)">Bulbasaur</a> in Pokémon Emerald.
+        <a href="https://bulbapedia.bulbagarden.net/wiki/Bulbasaur_(Pok%C3%A9mon)">Bulbasaur</a> in Pokémon Fire Red.
         First, you'll need one of the <code>tm35-genX-load</code> programs to extract game information into an editable
         text file.</p>
-    <pre><code>tm35-gen3-load pokemon-emerald.gba &gt; emerald.tm35</code></pre>
+    <pre><code>tm35-gen3-load pokemon-fire-red.gba &gt; fire-red.tm35</code></pre>
 
     <p>Inside this file, you'll find a lot of information about the game you loaded. What we are looking for is
         Bulbasaur's information.</p>
@@ -42,16 +42,16 @@
 .pokemons[1].types[1]=Dragon</code></pre>
 
     <p>If we now save this file and pipe it into <code>tm35-gen3-apply</code>, our changes will be applied to the game.</p>
-    <pre><code>tm35-gen3-apply pokemon-emerald.gba -o emerald-modified.gba &lt; emerald.tm35</code></pre>
+    <pre><code>tm35-gen3-apply pokemon-fire-red.gba -o fire-red-modified.gba &lt; fire-red.tm35</code></pre>
 
-    <img src="image/emerald-modified.gba.png" alt="emerald-modified.gba.png">
+    <img src="images/fire-red-modified.png" alt="fire-red-modified.png">
 
     <p>If you already know what you want to modify you can also use <code>tm35-genX-apply</code> on its own.</p>
-    <pre><code>echo ".pokemons[1].types[1]=Dragon" | tm35-gen3-apply pokemon-emerald.gba -o emerald-modified.gba</code></pre>
+    <pre><code>echo ".pokemons[1].types[1]=Dragon" | tm35-gen3-apply pokemon-fire-red.gba -o fire-red-modified.gba</code></pre>
 
     <p>Metronome also provides a set of tools that can read, understand and modify this data. One of these tools is
         <code>tm35-rand-wild</code> which will randomize the wild Pokémons in a game.</p>
-    <pre><code>tm35-gen3-load pokemon-emerald.gba | tm35-rand-wild | tm35-gen3-apply pokemon-emerald.gba -o emerald-modified.gba</code></pre>
+    <pre><code>tm35-gen3-load pokemon-fire-red.gba | tm35-rand-wild | tm35-gen3-apply pokemon-fire-red.gba -o fire-red-modified.gba</code></pre>
 
     <h2>Videos</h2>
     <a href="https://youtu.be/dbcLcEAEw-A">Demo: Randomizing wild Pokemons of gen 4 games (TM35-Metronome)</a> (16.
