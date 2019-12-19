@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Metronome &mdash; Metronome</title>
+<link rel="stylesheet" href="https://unpkg.com/marx-css/css/marx.min.css">
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<h1 id="Metronome">Metronome</h1>
+
+<h5 id="%3Cem%3EA%20set%20of%20tools%20for%20modifying%20and%20randomizing%20Pok%C3%A9mon%20games%3C/em%3E"><em>A set of tools for modifying and randomizing Pokémon games</em></h5>
+
+<p><nav>
+    <a href="https://github.com/TM35-Metronome/metronome/releases">download</a> |
+    <a href="https://github.com/TM35-Metronome/metronome">source</a>
+</nav></p>
+
+<p>Metronome is built as a competitor to <a href="http://tinyurl.com/r6fuhcb">PPRE</a>,
+the <a href="http://tinyurl.com/yyu9msno">Universal Pokemon Randomizer</a>, and
+<a href="http://tinyurl.com/vahcn2n">other tools</a> used to modify Pokémon games.</p>
+
+<p>Unlike most of these tools, Metronome is built from the ground up to be
+extendible, meaning that anyone can build their own tool on top of
+Metronome. So far, a <a href="/randomizer.html">Randomizer</a> has been built
+using Metronome.</p>
+
+<p>Metronome is a set of programs called <code>tm35-load</code> and <code>tm35-apply</code>.
+<code>tm35-load</code> is a command-line tool that loads a Pokémon rom and
+outputs a lot of data about this rom:</p>
+
+<pre><code>> <span class="sh-comment"># Full output is omitted with `head`</span>
+> tm35-load emerald.gba | head
+.version=Emerald
+.game_title=POKEMON EMER
+.gamecode=BPEE
+.starters[0]=277
+.starters[1]=280
+.starters[2]=283
+.trainers[0].class=0
+.trainers[0].encounter_music=0
+.trainers[0].trainer_picture=0
+.trainers[0].items[0]=0
+</code></pre>
+
+<p>The format is really simple. Each line is a sequence of field
+and array accesses followed by a value. <code>.trainers[0].encounter_music=0</code>
+should be read as:</p>
+
+<pre><code>field &#39;trainers&#39;
+index &#39;0&#39;
+field &#39;encounter_music&#39;
+is &#39;0&#39;
+</code></pre>
+
+<p><code>tm35-apply</code> is the counterpart to <code>tm35-load</code>. It takes the same
+format that <code>tm35-load</code> outputs, and applies that information to a
+Pokémon rom.</p>
+
+<h2 id="Examples">Examples</h2>
+
+<pre><code>> <span class="sh-comment"># Set Treeckos first type to be Fire.</span>
+> <span class="sh-comment"># This will make Treecko a Fire/Grass type.</span>
+> echo <span class="sh-string">'.pokemons[277].types[0]=Fire'</span> | tm35-apply emerald.gba
+</code></pre>
+
+<p><img src="/images/treecko-fire-grass.png" alt="randomizer" /></p>
+
+<pre><code>> <span class="sh-comment"># Set the max level of all wild Pokémons to 100</span>
+> tm35-load emerald.gba | sed <span class="sh-string">'s/max_level=.*$/\max_level=100/'</span> |
+      tm35-apply emerald.gba
+</code></pre>
+
+<p><img src="/images/wild-max-100.png" alt="randomizer" /></p>
+
+<pre><code>> <span class="sh-comment"># 150 power, 25% accuracy, and 5 PP for all moves. Very fun!</span>
+> tm35-load plat.nds | sed -e <span class="sh-string">'s/\.power=.*$/.power=150/'</span> \
+      -e <span class="sh-string">'s/\.accuracy=.*$/.accuracy=25/'</span> \
+      -e <span class="sh-string">'s/\.pp=.*$/.pp=5/'</span> | tm35-apply plat.nds
+</code></pre>
+
+<p><img src="/images/150pw-25ac-5pp.png" alt="randomizer" /></p>
+</body>
+</html>

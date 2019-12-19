@@ -1,0 +1,28 @@
+/* Colors
+
+*/
+
+body {
+    width: 800px;
+    margin: auto;
+}
+
+pre {
+    border-radius: 6px;
+}
+
+img {
+    border-radius: 6px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sh-comment {
+    color: #858585;
+}
+
+.sh-string {
+    color: #008000;
+}
+
