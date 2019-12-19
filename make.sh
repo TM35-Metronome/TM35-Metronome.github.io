@@ -19,4 +19,4 @@ while getopts "h" OPT; do
 done
 shift $((OPTIND-1))
 
-ssg5 src site 'Metronome' 'http://www'
+ssg5 src . 'Metronome' 'http://www'
